@@ -24,7 +24,12 @@ namespace AssistantApi_Project.Controllers
 
             stringRequest = request;
 
+            MediaPlayer media = new MediaPlayer();
+            media.getSourceOnSearch();
 
+            resulter.Contend = "Test";
+
+            
             Devider devider = new Devider();
         
             string request_type = devider.RequestDevider(request);
@@ -33,16 +38,18 @@ namespace AssistantApi_Project.Controllers
             if (request_type.Equals("wiki"))
             {
 
-                StringAnalysis stringanalysis = new StringAnalysis();
+                //StringAnalysis stringanalysis = new StringAnalysis();
+                SearchInfo searchinfo = new SearchInfo();
+
                 
                 
-                string keyworld = stringanalysis.SimplifyString(request);
+                string keyworld = searchinfo.SimplifyStringForWiki(request);
                 keyworld_wiki = keyworld;
 
                 System.Diagnostics.Debug.WriteLine(keyworld);
           
                 List<string> lstKeyworld = new List<string>();
-                lstKeyworld = stringanalysis.SeparateString(request);
+                lstKeyworld = searchinfo.SeparateString(request);
                
                 for (int i = 0; i < lstKeyworld.Count; i++)
                 {
@@ -89,23 +96,12 @@ namespace AssistantApi_Project.Controllers
                 resulter.Type = "None";
 
             }
-
-
+            
+    
             yield return resulter;
         }
 
-        public void GetWiki(string request)
-        {
-            StringAnalysis stringanalysis = new StringAnalysis();
-            List<string> lstKeyworld = new List<string>();
-            lstKeyworld = stringanalysis.SeparateString(request);
-
-            for(int i = 0; i < lstKeyworld.Count; i++)
-            {
-                System.Diagnostics.Debug.WriteLine("List Key: "+lstKeyworld[i]);
-            }
-
-        }
+     
 
 
 
