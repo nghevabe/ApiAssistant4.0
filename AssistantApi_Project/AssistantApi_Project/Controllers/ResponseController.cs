@@ -13,6 +13,7 @@ namespace AssistantApi_Project.Controllers
     {
         public static string stringRequest = "";
         public static string keyworld_wiki = "";
+        public List<string> lstChuoi = new List<string>();
 
         [System.Web.Http.Route("api/assistant")]
         [System.Web.Http.HttpGet]
@@ -23,17 +24,12 @@ namespace AssistantApi_Project.Controllers
             Models.Resulter resulter = new Models.Resulter();
 
             stringRequest = request;
+      
 
-            MediaPlayer media = new MediaPlayer();
-            media.getSourceOnSearch();
-
-            resulter.Contend = "Test";
-
-            
             Devider devider = new Devider();
-        
+
             string request_type = devider.RequestDevider(request);
-        
+
 
             if (request_type.Equals("wiki"))
             {
@@ -41,19 +37,19 @@ namespace AssistantApi_Project.Controllers
                 //StringAnalysis stringanalysis = new StringAnalysis();
                 SearchInfo searchinfo = new SearchInfo();
 
-                
-                
+
+
                 string keyworld = searchinfo.SimplifyStringForWiki(request);
                 keyworld_wiki = keyworld;
 
                 System.Diagnostics.Debug.WriteLine(keyworld);
-          
+
                 List<string> lstKeyworld = new List<string>();
                 lstKeyworld = searchinfo.SeparateString(request);
-               
+
                 for (int i = 0; i < lstKeyworld.Count; i++)
                 {
-               
+
                     System.Diagnostics.Debug.WriteLine("List Key: " + lstKeyworld[i]);
 
                     SearchInfo searchInfo = new SearchInfo();
@@ -75,7 +71,7 @@ namespace AssistantApi_Project.Controllers
 
                     }
 
-                 
+
                 }
 
             }
@@ -86,17 +82,35 @@ namespace AssistantApi_Project.Controllers
                 resulter.Contend = weather.getWeatherResponse(request);
 
                 resulter.Type = "Weather";
-             
+
+            }
+
+
+            if (request_type.Equals("media"))
+            {
+                MediaPlayer media = new MediaPlayer();
+
+
+                string test = media.SimplifyStringForMedia(request);
+
+                System.Diagnostics.Debug.WriteLine("Media:" + test);
+
+                media.getLinkMedia(test);
+
+                resulter.Contend = media.getLinkMedia(test);
+
+                resulter.Type = "Media Player";
+
             }
 
             if (request_type.Equals("none"))
             {
-              
+
                 resulter.Contend = "không thể thực hiện yêu cầu";
                 resulter.Type = "None";
 
             }
-            
+
     
             yield return resulter;
         }

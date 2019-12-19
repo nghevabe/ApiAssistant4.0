@@ -14,7 +14,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
         List<int> lstIndex = new List<int>();
         // 
 
-        string[] lstRequestType = { "wiki", "weather", "controller","musical", "reminder" };
+        string[] lstRequestType = { "wiki", "weather", "controller","media", "reminder" };
         int[] lstPoint = {0,0,0,0,0 };
 
         string[] lstAdverb = {"hôm nay", "ngày mai", "ngày kia","hiện giờ"};
@@ -35,11 +35,16 @@ namespace AssistantApi_Project.Controllers.CommonProcess
 
         string[] lstWeather_Key = { "thời tiết","nhiệt độ","có mưa không","trời mưa không"};
 
+        string[] lstVerbMedia = { "bật", "mở", "chơi", "chạy", "nghe" };
+
+        string[] lstObjectMedia = { "bài", "bài hát", "ca khúc", "nhạc" };
+
 
         public string RequestDevider(string strRequest)
         {
             CheckWiki(strRequest);
             CheckWeather(strRequest);
+            CheckMedia(strRequest);
 
             for(int i=0; i< lstPoint.Length; i++)
             {
@@ -185,10 +190,61 @@ namespace AssistantApi_Project.Controllers.CommonProcess
            
         }
 
-     
-       
 
-       
+        public void CheckMedia(string strRequest)
+        {
+            int point = 0;
+
+            for (int i = 0; i < lstVerbAsk.Length; i++)
+            {
+                if (strRequest.Contains(lstVerbAsk[i]))
+                {
+
+                    point = point + 1;
+
+
+                }
+            }
+
+
+            //lstVerbMedia
+            //lstObjectMedia
+
+
+            for (int i = 0; i < lstVerbMedia.Length; i++)
+            {
+                if (strRequest.Contains(lstVerbMedia[i]))
+                {
+
+                    point = point + 1;
+
+
+                }
+            }
+
+            for (int i = 0; i < lstObjectMedia.Length; i++)
+            {
+                if (strRequest.Contains(lstObjectMedia[i]))
+                {
+
+                    point = point + 1;
+
+
+                }
+            }
+
+
+
+
+
+            lstPoint[3] = point;
+
+
+        }
+
+
+
+
 
 
     }
