@@ -99,7 +99,7 @@ namespace AssistantApi_Project.Controllers
 
                 resulter.Contend = media.getLinkMedia(test);
 
-                resulter.Type = "Media Player";
+                resulter.Type = "Media";
 
             }
 
