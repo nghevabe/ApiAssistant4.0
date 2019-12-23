@@ -260,9 +260,9 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
 
 
 
-        public string GetWikiInfomations(string input)
+        public string GetWikiInfomationsUrl(string input)
         {
-
+            // Thành Sơn Tây</b> được xây dựng vào năm
             HttpData httpData = new HttpData();
             string str = httpData.StringFromUrl(input);
             string result = "";
@@ -294,26 +294,100 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
                 {
 
                     // anal
-                    string signContend = "<Description xml:space=\"preserve\">";
+                    string signContend = "<Url xml:space=\"preserve\">";
 
                     int start_index = str.IndexOf(signContend, 0);
 
-                    int end_index = str.IndexOf("</Description>", start_index + (signContend.Length));
+                    int end_index = str.IndexOf("</Url>", start_index + (signContend.Length));
 
 
-                    result = str.Substring(start_index + (signContend.Length), (end_index - (start_index + (signContend.Length))));
+                    string link_url = str.Substring(start_index + (signContend.Length), (end_index - (start_index + (signContend.Length))));
+                    result = GetDescription(link_url);
+                    result = DeleteHTMLtag(result);
+                    result = DeleteRedundancy(result);
                 }
             }
 
+            
 
             return result;
                   
         }
 
 
+        public string GetDescription(string link_url)
+        {
+            HttpData httpData = new HttpData();
+
+            string str = httpData.StringFromUrl(link_url);
+
+            string result = "";
+
+            string signContend = "<p><b>";
+
+            int start_index = str.IndexOf(signContend, 0);
+
+            int end_index = str.IndexOf("</p>", start_index + (signContend.Length));
+
+
+            result = str.Substring(start_index + (signContend.Length), (end_index - (start_index + (signContend.Length))));
+
+            //System.Diagnostics.Debug.WriteLine("Des: " + result);
+
+
+            return result;
+        }
+        // Redundancy
+        public string DeleteHTMLtag(string des)
+        {
+            string result = "";
+
+            string signContend = "<";
+
+            int start_index = des.IndexOf(signContend, 0);
+
+            int end_index = des.IndexOf(">", start_index + (signContend.Length));
+
+
+            string Head = des.Substring(0 , start_index);
+            string Tail = des.Substring(end_index+1, (des.Length - end_index)-1);
+
+            result = Head + " " + Tail;
+
+            int findNext = result.IndexOf(signContend, 0);
+            if (findNext > 0)
+            {
+                System.Diagnostics.Debug.WriteLine("GO ON");
+                result = DeleteHTMLtag(result);
+                
+            }
+
+            return result;
+        }
 
 
 
+
+        public string DeleteRedundancy(string des)
+        {
+            string result = "";
+
+            string[] str_cut = des.Split(' ');
+
+            for(int i = 0; i < str_cut.Length; i++)
+            {
+
+                if (!str_cut[i].Contains("#") || !str_cut[i].Contains("&"))
+                {
+                    result = result +" "+ str_cut[i];
+                }
+
+            }
+
+           
+
+                return result;
+        }
 
 
 

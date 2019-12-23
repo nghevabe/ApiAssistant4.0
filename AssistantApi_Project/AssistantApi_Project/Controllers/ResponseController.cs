@@ -45,15 +45,16 @@ namespace AssistantApi_Project.Controllers
                 System.Diagnostics.Debug.WriteLine(keyworld);
 
                 List<string> lstKeyworld = new List<string>();
-                lstKeyworld = searchinfo.SeparateString(request);
+                lstKeyworld = searchinfo.SeparateString(keyworld_wiki);
 
                 for (int i = 0; i < lstKeyworld.Count; i++)
                 {
 
                     System.Diagnostics.Debug.WriteLine("List Key: " + lstKeyworld[i]);
-
+                  
+                    
                     SearchInfo searchInfo = new SearchInfo();
-                    string str_contend = searchInfo.GetWikiInfomations("https://vi.m.wikipedia.org/w/api.php?action=opensearch&search=" + lstKeyworld[i] + "&limit=1&format=xml");
+                    string str_contend = searchInfo.GetWikiInfomationsUrl("https://vi.m.wikipedia.org/w/api.php?action=opensearch&search=" + lstKeyworld[i] + "&limit=1&format=xml");
                     if(str_contend.Equals("không có kết quả"))
                     {
 
@@ -70,7 +71,7 @@ namespace AssistantApi_Project.Controllers
                         break;
 
                     }
-
+                    
 
                 }
 
