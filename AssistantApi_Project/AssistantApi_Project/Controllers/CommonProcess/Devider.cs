@@ -39,14 +39,21 @@ namespace AssistantApi_Project.Controllers.CommonProcess
 
         string[] lstObjectMedia = { "bài", "bài hát", "ca khúc", "nhạc" };
 
+        string[] lstObjectReminder = { "lịch", "hẹn" };
+
+        string[] lstVerbReminder = { "nhắc", "đặt", "xếp", "hẹn" };
+
+        string[] lstAdverbReminder = { "nay", "mai", "ngày kia", "tuần này", "tuần sau" };
+
 
         public string RequestDevider(string strRequest)
         {
             CheckWiki(strRequest);
             CheckWeather(strRequest);
             CheckMedia(strRequest);
+            CheckReminder(strRequest);
 
-            for(int i=0; i< lstPoint.Length; i++)
+            for (int i=0; i< lstPoint.Length; i++)
             {
                 System.Diagnostics.Debug.WriteLine("Point: " + lstPoint[i]);
             }
@@ -106,7 +113,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
                 if (strRequest.Contains(lstWiki_Ask_What[i]))
                 {
                     request_type = "wiki";
-                    pointWhat = 1;
+                    pointWhat = 3;
                 }
             }
 
@@ -115,7 +122,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
                 if (strRequest.Contains(lstWiki_Ask_Where[i]))
                 {
                     request_type = "wiki";
-                    pointWhat = 1; ;
+                    pointWhat = 3;
                 }
             }
 
@@ -124,7 +131,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
                 if (strRequest.Contains(lstWiki_Ask_How[i]))
                 {
                     request_type = "wiki";
-                    pointWhat = 1;
+                    pointWhat = 3;
                 }
             }
 
@@ -135,7 +142,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
                 if (strRequest.Contains(lstWiki_Key_Before[i]))
                 {
                     request_type = "wiki";
-                    point = point + 1;
+                    point = point + 3;
                 }
             }
 
@@ -166,7 +173,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
                 if (strRequest.Contains(lstWeather_Key[i]))
                 {
                     status = 1;
-                    point = point + 1;
+                    point = point + 3;
 
 
                 }
@@ -207,16 +214,12 @@ namespace AssistantApi_Project.Controllers.CommonProcess
             }
 
 
-            //lstVerbMedia
-            //lstObjectMedia
-
-
             for (int i = 0; i < lstVerbMedia.Length; i++)
             {
                 if (strRequest.Contains(lstVerbMedia[i]))
                 {
 
-                    point = point + 1;
+                    point = point + 2;
 
 
                 }
@@ -227,7 +230,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
                 if (strRequest.Contains(lstObjectMedia[i]))
                 {
 
-                    point = point + 1;
+                    point = point + 3;
 
 
                 }
@@ -238,6 +241,65 @@ namespace AssistantApi_Project.Controllers.CommonProcess
 
 
             lstPoint[3] = point;
+
+
+        }
+
+
+        public void CheckReminder(string strRequest)
+        {
+            int point = 0;
+ 
+            for (int i = 0; i < lstVerbAsk.Length; i++)
+            {
+                if (strRequest.Contains(lstVerbAsk[i]))
+                {
+
+                    point = point + 1;
+
+
+                }
+            }
+
+            for (int i = 0; i < lstObjectReminder.Length; i++)
+            {
+                if (strRequest.Contains(lstObjectReminder[i]))
+                {
+                   
+                    point = point + 1;
+
+
+                }
+            }
+
+
+        
+
+            for (int i = 0; i < lstVerbReminder.Length; i++)
+            {
+                if (strRequest.Contains(lstVerbReminder[i]))
+                {
+
+                    point = point + 2;
+
+
+                }
+            }
+
+            //lstVerbReminder
+
+            for (int i = 0; i < lstAdverbReminder.Length; i++)
+                {
+                    if (strRequest.Contains(lstAdverbReminder[i]))
+                    {
+                        request_type = "reminder";
+                        point = point + 2;
+
+                    }
+                }
+            
+
+            lstPoint[4] = point;
 
 
         }

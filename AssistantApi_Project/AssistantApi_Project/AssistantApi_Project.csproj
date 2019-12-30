@@ -165,6 +165,7 @@
     <Compile Include="Controllers\CommonProcess\ProcessString.cs" />
     <Compile Include="Controllers\CommonProcess\StringAnalysis.cs" />
     <Compile Include="Controllers\FeatureProcess\MediaPlayer.cs" />
+    <Compile Include="Controllers\FeatureProcess\Reminder.cs" />
     <Compile Include="Controllers\FeatureProcess\SearchInfo.cs" />
     <Compile Include="Controllers\FeatureProcess\Weather.cs" />
     <Compile Include="Controllers\HomeController.cs" />

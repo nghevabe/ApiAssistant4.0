@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Text.RegularExpressions;
 
 namespace AssistantApi_Project.Controllers
 {
@@ -29,6 +30,14 @@ namespace AssistantApi_Project.Controllers
             Devider devider = new Devider();
 
             string request_type = devider.RequestDevider(request);
+
+           
+
+           
+            
+
+
+            
 
 
             if (request_type.Equals("wiki"))
@@ -101,6 +110,18 @@ namespace AssistantApi_Project.Controllers
                 resulter.Contend = media.getLinkMedia(test);
 
                 resulter.Type = "Media";
+
+            }
+
+            if (request_type.Equals("reminder"))
+            {
+                Reminder reminder = new Reminder();
+
+               // System.Diagnostics.Debug.WriteLine(reminder.getTimer("tôi muốn đặt lịch hẹn đi ăn nhậu vào thứ 5 tuần này lúc 6 giờ kém 20 tối"));
+
+                resulter.Contend = reminder.getTimer(request);
+
+                resulter.Type = reminder.getContend();
 
             }
 
