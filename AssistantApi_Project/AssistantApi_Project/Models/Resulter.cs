@@ -9,6 +9,7 @@ namespace AssistantApi_Project.Models
     {
 
         private string contend;
+        private string timer;
         private string type;
         //private string finalResponse;
 
@@ -22,6 +23,12 @@ namespace AssistantApi_Project.Models
         {
             get { return type; }
             set { type = value; }
+        }
+
+        public string Timer
+        {
+            get { return timer; }
+            set { timer = value; }
         }
 
         /*

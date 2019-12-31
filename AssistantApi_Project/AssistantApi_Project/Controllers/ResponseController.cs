@@ -33,12 +33,6 @@ namespace AssistantApi_Project.Controllers
 
            
 
-           
-            
-
-
-            
-
 
             if (request_type.Equals("wiki"))
             {
@@ -47,14 +41,27 @@ namespace AssistantApi_Project.Controllers
                 SearchInfo searchinfo = new SearchInfo();
 
 
-
+                System.Diagnostics.Debug.WriteLine("Yes:" );
                 string keyworld = searchinfo.SimplifyStringForWiki(request);
                 keyworld_wiki = keyworld;
 
-                System.Diagnostics.Debug.WriteLine(keyworld);
+                System.Diagnostics.Debug.WriteLine("|"+keyworld+"|");
 
                 List<string> lstKeyworld = new List<string>();
                 lstKeyworld = searchinfo.SeparateString(keyworld_wiki);
+
+                string[] keyworld_cut = keyworld.Split(' ');
+                if(keyworld_cut.Length == 2)
+                {
+
+                    SearchInfo searchInfo = new SearchInfo();
+               
+                    string str_contend = searchInfo.GetWikiInfomationsUrl("https://vi.m.wikipedia.org/w/api.php?action=opensearch&search=" + keyworld + "&limit=1&format=xml");
+                    resulter.Contend = str_contend;
+                    System.Diagnostics.Debug.WriteLine("Có Ket Qua 0: " + str_contend);
+                    resulter.Type = "Wiki";
+                    resulter.Timer = "None";
+                }
 
                 for (int i = 0; i < lstKeyworld.Count; i++)
                 {
@@ -63,12 +70,15 @@ namespace AssistantApi_Project.Controllers
                   
                     
                     SearchInfo searchInfo = new SearchInfo();
+                    System.Diagnostics.Debug.WriteLine("world: " + lstKeyworld[i]);
                     string str_contend = searchInfo.GetWikiInfomationsUrl("https://vi.m.wikipedia.org/w/api.php?action=opensearch&search=" + lstKeyworld[i] + "&limit=1&format=xml");
                     if(str_contend.Equals("không có kết quả"))
                     {
 
                         resulter.Contend = "không tìm thấy kết quả";
                         resulter.Type = "None";
+                        resulter.Timer = "None";
+
 
                     }
 
@@ -76,7 +86,9 @@ namespace AssistantApi_Project.Controllers
                     {
 
                         resulter.Contend = str_contend;
+                        System.Diagnostics.Debug.WriteLine("Có Ket Qua: "+str_contend);
                         resulter.Type = "Wiki";
+                        resulter.Timer = "None";
                         break;
 
                     }
@@ -90,7 +102,7 @@ namespace AssistantApi_Project.Controllers
             {
                 Weather weather = new Weather();
                 resulter.Contend = weather.getWeatherResponse(request);
-
+                resulter.Timer = "None";
                 resulter.Type = "Weather";
 
             }
@@ -108,7 +120,7 @@ namespace AssistantApi_Project.Controllers
                 media.getLinkMedia(test);
 
                 resulter.Contend = media.getLinkMedia(test);
-
+                resulter.Timer = "None";
                 resulter.Type = "Media";
 
             }
@@ -117,11 +129,14 @@ namespace AssistantApi_Project.Controllers
             {
                 Reminder reminder = new Reminder();
 
-               // System.Diagnostics.Debug.WriteLine(reminder.getTimer("tôi muốn đặt lịch hẹn đi ăn nhậu vào thứ 5 tuần này lúc 6 giờ kém 20 tối"));
+                // System.Diagnostics.Debug.WriteLine(reminder.getTimer("tôi muốn đặt lịch hẹn đi ăn nhậu vào thứ 5 tuần này lúc 6 giờ kém 20 tối"));
+                
+                //System.Diagnostics.Debug.WriteLine("API Contend: "+ reminder.getContend());
+                
 
-                resulter.Contend = reminder.getTimer(request);
-
-                resulter.Type = reminder.getContend();
+                resulter.Timer = reminder.getTimer(request);
+                resulter.Contend = reminder.getContend();
+                resulter.Type = "Reminder";
 
             }
 
@@ -130,6 +145,7 @@ namespace AssistantApi_Project.Controllers
 
                 resulter.Contend = "không thể thực hiện yêu cầu";
                 resulter.Type = "None";
+                resulter.Timer = "None";
 
             }
 

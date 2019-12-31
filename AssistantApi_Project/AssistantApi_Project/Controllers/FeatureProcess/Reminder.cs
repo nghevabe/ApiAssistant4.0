@@ -95,11 +95,12 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
             //DateTime aDateTime = DateTime.Now;
 
             string[] input_cut = input.Split(' ');
+            DateTime aDateTime = DateTime.Now;
 
             if (input.Contains("nữa"))
             {
-                
 
+                //string result_time = "";
                 for (int i = 0; i < input_cut.Length; i++)
                 {
 
@@ -107,6 +108,9 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
                     {
                         System.Diagnostics.Debug.WriteLine("text: " + input_cut[i - 1]);
                         System.Diagnostics.Debug.WriteLine("number: " + input_cut[i - 2]);
+                        
+
+                       
 
                         string value = input_cut[i - 2];
                         int int_value = Convert.ToInt32(value);
@@ -117,8 +121,13 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
                         if (input_cut[i - 1].Equals("phút"))
                         {
 
-                            string newtime = getAddTime(0, 0, int_value);
-                            System.Diagnostics.Debug.WriteLine("Final: " + newtime);
+
+                            //TimeSpan timeSpan = new System.TimeSpan(0, int_value, 0);
+                            TimeSpan timeSpan = new System.TimeSpan(15, int_value, 0);
+                            aDateTime = aDateTime.Add(timeSpan);
+                            //string newtime = getAddTime(0, 0, int_value);
+                            System.Diagnostics.Debug.WriteLine("Final: " + aDateTime.ToString());
+                           
 
                             Remove_TimeWord(i - 1);
 
@@ -127,9 +136,12 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
 
                         if (input_cut[i - 1].Equals("giờ") || input_cut[i - 1].Equals("tiếng"))
                         {
-
-                            string newtime = getAddTime(0, int_value, 0);
-                            System.Diagnostics.Debug.WriteLine("Final: " + newtime);
+                            //TimeSpan timeSpan = new System.TimeSpan(int_value, 0, 0);
+                            TimeSpan timeSpan = new System.TimeSpan(int_value+15, 0, 0);
+                            aDateTime = aDateTime.Add(timeSpan);
+                            
+                            System.Diagnostics.Debug.WriteLine("Final: " + aDateTime.ToString());
+                           
 
                             Remove_TimeWord(i - 1);
 
@@ -141,6 +153,8 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
                   
 
                 }
+                result = aDateTime.ToString();
+                // result_time
             }
 
             if (!input.Contains("nữa"))
@@ -149,7 +163,7 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
                 string hour_destination = "none";
                 string minute_destination = "none";
                 int hour_need = 0;          
-                DateTime aDateTime = DateTime.Now;
+                //DateTime aDateTime = DateTime.Now;
 
                 TimeSpan timeSpan = new System.TimeSpan(0, 0, 0, 0);
 
@@ -165,6 +179,9 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
                 timeSpan = new System.TimeSpan(0, 0, int_minute_now, int_second_now);
                 aDateTime = aDateTime.Subtract(timeSpan);
                 System.Diagnostics.Debug.WriteLine(" Timer0: " + aDateTime.ToString());
+
+                timeSpan = new System.TimeSpan(0, 15, 0, 0);
+                aDateTime = aDateTime.Add(timeSpan);
 
                 // Get Hour
 
@@ -192,8 +209,9 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
                               {
                                    // System.Diagnostics.Debug.WriteLine("Is number");
                                    minute_destination = input_cut[i + 1];
+                                Remove_TimeWord(i + 1);
 
-                                  if(input_cut[i + 2].Equals("phút"))
+                                if (input_cut[i + 2].Equals("phút"))
                                     {
                                        Remove_TimeWord(i+2);
                                     }
@@ -265,6 +283,7 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
                             hour_need = int_hour_destination - int_hour_current;
 
                             timeSpan = new System.TimeSpan(0, hour_need, int_minute, 0);
+                           
                             aDateTime = aDateTime.Add(timeSpan);
                             Remove_TimeWord(i);
                             System.Diagnostics.Debug.WriteLine(" Timer1: " + aDateTime.ToString());
@@ -294,6 +313,7 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
                             hour_need = (int_hour_destination + 12) - int_hour_current;
 
                             timeSpan = new System.TimeSpan(0, hour_need, int_minute, 0);
+                           
                             aDateTime = aDateTime.Add(timeSpan);
                             Remove_TimeWord(i);
                             System.Diagnostics.Debug.WriteLine(" Timer: " + aDateTime.ToString());
@@ -305,7 +325,7 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
 
                 }
 
-                /// xxx
+                /*
                 if (!input.Equals("sáng") || !input.Equals("trưa") || !input.Equals("chiều") || !input.Equals("tối"))
                 {
                     if (!hour_destination.Equals("none"))
@@ -321,13 +341,14 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
                         hour_need = int_hour_destination - int_hour_current;
 
                         timeSpan = new System.TimeSpan(0, hour_need, int_minute, 0);
+                       
                         aDateTime = aDateTime.Add(timeSpan);
                       
                         System.Diagnostics.Debug.WriteLine(" Timer1: " + aDateTime.ToString());
 
                     }
                 }
-
+                */
 
                     for (int i = 0; i < input_cut.Length; i++)
                 {
