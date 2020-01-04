@@ -82,7 +82,8 @@ namespace AssistantApi_Project.Controllers.CommonProcess
 
             for(int i = 0; i < lstPoint.Length; i++)
             {
-                if(lstPoint[i] > max)
+                
+                if(lstPoint[i] > max && lstPoint[i] > 2 )
                 {
                     max = lstPoint[i];
                     index = i;
@@ -112,7 +113,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
             {
                 if (strRequest.Contains(lstWiki_Ask_What[i]))
                 {
-                    request_type = "wiki";
+                    //request_type = "wiki";
                     pointWhat = 3;
                 }
             }
@@ -121,7 +122,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
             {
                 if (strRequest.Contains(lstWiki_Ask_Where[i]))
                 {
-                    request_type = "wiki";
+                    //request_type = "wiki";
                     pointWhat = 3;
                 }
             }
@@ -130,7 +131,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
             {
                 if (strRequest.Contains(lstWiki_Ask_How[i]))
                 {
-                    request_type = "wiki";
+                    //request_type = "wiki";
                     pointWhat = 3;
                 }
             }
@@ -141,7 +142,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
             {
                 if (strRequest.Contains(lstWiki_Key_Before[i]))
                 {
-                    request_type = "wiki";
+                    //request_type = "wiki";
                     point = point + 3;
                 }
             }
@@ -185,7 +186,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
                 {
                     if (strRequest.Contains(lstAdverb[i]))
                     {                    
-                        request_type = "weather";
+                        //request_type = "weather";
                         point = point + 2;
                         
                     }
@@ -292,7 +293,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
                 {
                     if (strRequest.Contains(lstAdverbReminder[i]))
                     {
-                        request_type = "reminder";
+                        //request_type = "reminder";
                         point = point + 2;
 
                     }

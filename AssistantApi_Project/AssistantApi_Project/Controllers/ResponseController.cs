@@ -60,6 +60,7 @@ namespace AssistantApi_Project.Controllers
                     resulter.Contend = str_contend;
                     System.Diagnostics.Debug.WriteLine("Có Ket Qua 0: " + str_contend);
                     resulter.Type = "Wiki";
+                    resulter.Title = "None";
                     resulter.Timer = "None";
                 }
 
@@ -77,6 +78,7 @@ namespace AssistantApi_Project.Controllers
 
                         resulter.Contend = "không tìm thấy kết quả";
                         resulter.Type = "None";
+                        resulter.Title = "None";
                         resulter.Timer = "None";
 
 
@@ -88,6 +90,7 @@ namespace AssistantApi_Project.Controllers
                         resulter.Contend = str_contend;
                         System.Diagnostics.Debug.WriteLine("Có Ket Qua: "+str_contend);
                         resulter.Type = "Wiki";
+                        resulter.Title = "None";
                         resulter.Timer = "None";
                         break;
 
@@ -103,6 +106,7 @@ namespace AssistantApi_Project.Controllers
                 Weather weather = new Weather();
                 resulter.Contend = weather.getWeatherResponse(request);
                 resulter.Timer = "None";
+                resulter.Title = "None";
                 resulter.Type = "Weather";
 
             }
@@ -113,14 +117,15 @@ namespace AssistantApi_Project.Controllers
                 MediaPlayer media = new MediaPlayer();
 
 
-                string test = media.SimplifyStringForMedia(request);
+                string title = media.SimplifyStringForMedia(request);
 
-                System.Diagnostics.Debug.WriteLine("Media:" + test);
+                System.Diagnostics.Debug.WriteLine("Media:" + title);
 
-                media.getLinkMedia(test);
+                media.getLinkMedia(title);
 
-                resulter.Contend = media.getLinkMedia(test);
+                resulter.Contend = media.getLinkMedia(title);
                 resulter.Timer = "None";
+                resulter.Title = title;
                 resulter.Type = "Media";
 
             }
@@ -136,6 +141,7 @@ namespace AssistantApi_Project.Controllers
 
                 resulter.Timer = reminder.getTimer(request);
                 resulter.Contend = reminder.getContend();
+                resulter.Title = "None";
                 resulter.Type = "Reminder";
 
             }
@@ -145,6 +151,7 @@ namespace AssistantApi_Project.Controllers
 
                 resulter.Contend = "không thể thực hiện yêu cầu";
                 resulter.Type = "None";
+                resulter.Title = "None";
                 resulter.Timer = "None";
 
             }

@@ -11,6 +11,7 @@ namespace AssistantApi_Project.Models
         private string contend;
         private string timer;
         private string type;
+        private string title;
         //private string finalResponse;
 
         public string Contend
@@ -29,6 +30,12 @@ namespace AssistantApi_Project.Models
         {
             get { return timer; }
             set { timer = value; }
+        }
+
+        public string Title
+        {
+            get { return title; }
+            set { title = value; }
         }
 
         /*
