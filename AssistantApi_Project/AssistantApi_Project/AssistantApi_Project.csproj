@@ -164,6 +164,7 @@
     <Compile Include="Controllers\CommonProcess\HttpData.cs" />
     <Compile Include="Controllers\CommonProcess\ProcessString.cs" />
     <Compile Include="Controllers\CommonProcess\StringAnalysis.cs" />
+    <Compile Include="Controllers\FeatureProcess\DeviceController.cs" />
     <Compile Include="Controllers\FeatureProcess\MediaPlayer.cs" />
     <Compile Include="Controllers\FeatureProcess\Reminder.cs" />
     <Compile Include="Controllers\FeatureProcess\SearchInfo.cs" />

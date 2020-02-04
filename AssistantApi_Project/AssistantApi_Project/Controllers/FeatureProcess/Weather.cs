@@ -161,7 +161,7 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
                     if (datageted.Status.Contains("rain"))
                     {
 
-                        response = dayRequest + " trời có mưa vào lúc " + GetHour(datageted.Time.ToString()) ;
+                        response = dayRequest + " trời có thể sẽ mưa vào lúc " + GetHour(datageted.Time.ToString()) ;
                         break;
 
                     }
@@ -185,7 +185,12 @@ namespace AssistantApi_Project.Controllers.FeatureProcess
 
             int int_hour = Convert.ToInt32(hour);
 
-            if(int_hour < 12)
+            if (int_hour == 0)
+            {
+                hour = "đêm";
+            }
+
+            if (int_hour > 0 && int_hour < 12)
             {
                 hour = hour + " giờ sáng";
             }

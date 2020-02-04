@@ -68,8 +68,8 @@ namespace AssistantApi_Project.Controllers
                 {
 
                     System.Diagnostics.Debug.WriteLine("List Key: " + lstKeyworld[i]);
-                  
-                    
+
+                    //https://vi.m.wikipedia.org/w/api.php?action=opensearch&search=ngọc trinh&limit=1&format=xml
                     SearchInfo searchInfo = new SearchInfo();
                     System.Diagnostics.Debug.WriteLine("world: " + lstKeyworld[i]);
                     string str_contend = searchInfo.GetWikiInfomationsUrl("https://vi.m.wikipedia.org/w/api.php?action=opensearch&search=" + lstKeyworld[i] + "&limit=1&format=xml");
@@ -143,6 +143,19 @@ namespace AssistantApi_Project.Controllers
                 resulter.Contend = reminder.getContend();
                 resulter.Title = "None";
                 resulter.Type = "Reminder";
+
+            }
+
+
+            if (request_type.Equals("controller"))
+            {
+
+                DeviceController device = new DeviceController();
+
+                resulter.Contend = device.getDeviceName(request);
+                resulter.Type = "Controller";
+                resulter.Title = device.getCommandType(request);
+                resulter.Timer = "None";
 
             }
 

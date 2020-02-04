@@ -30,7 +30,6 @@ namespace AssistantApi_Project.Controllers.CommonProcess
 
         string[] lstWiki_Ask_How = { "thế nào","như nào","như thế nào","là sao","làm sao" };
 
-      
         string[] lstWiki_Key_Before = { "chi tiết","thông tin", "tin tức" };
 
         string[] lstWeather_Key = { "thời tiết","nhiệt độ","có mưa không","trời mưa không"};
@@ -45,6 +44,12 @@ namespace AssistantApi_Project.Controllers.CommonProcess
 
         string[] lstAdverbReminder = { "nay", "mai", "ngày kia", "tuần này", "tuần sau" };
 
+        string[] lstVerbController = { "bật", "mở", "tắt", "đóng", "tăng", "giảm", "chuyển", "đổi", "thay đổi" };
+
+        string[] lstObjectController = { "đèn", "thiết bị", "cửa", "quạt" };
+
+
+
 
         public string RequestDevider(string strRequest)
         {
@@ -52,6 +57,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
             CheckWeather(strRequest);
             CheckMedia(strRequest);
             CheckReminder(strRequest);
+            CheckController(strRequest);
 
             for (int i=0; i< lstPoint.Length; i++)
             {
@@ -267,7 +273,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
                 if (strRequest.Contains(lstObjectReminder[i]))
                 {
                    
-                    point = point + 1;
+                    point = point + 2;
 
 
                 }
@@ -281,7 +287,7 @@ namespace AssistantApi_Project.Controllers.CommonProcess
                 if (strRequest.Contains(lstVerbReminder[i]))
                 {
 
-                    point = point + 2;
+                    point = point + 3;
 
 
                 }
@@ -301,6 +307,52 @@ namespace AssistantApi_Project.Controllers.CommonProcess
             
 
             lstPoint[4] = point;
+
+
+        }
+
+
+        public void CheckController(string strRequest)
+        {
+            int point = 0;
+            int status = 0;
+
+            for (int i = 0; i < lstVerbOrder.Length; i++)
+            {
+                if (strRequest.Contains(lstVerbOrder[i]))
+                {
+
+                    point = point + 1;
+
+
+                }
+            }
+
+            for (int i = 0; i < lstVerbController.Length; i++)
+            {
+                if (strRequest.Contains(lstVerbController[i]))
+                {
+                    status = 1;
+                    point = point + 2;
+
+
+                }
+            }
+
+            if (status == 1)
+            {
+                for (int i = 0; i < lstObjectController.Length; i++)
+                {
+                    if (strRequest.Contains(lstObjectController[i]))
+                    {
+                      
+                        point = point + 3;
+
+                    }
+                }
+            }
+
+            lstPoint[2] = point;
 
 
         }
